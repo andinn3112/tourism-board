@@ -1,0 +1,61 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+        
+model User {
+  id          Int       @id @default(autoincrement())
+  name        String
+  email       String    @unique
+  password    String
+  role        Role      @default(ADMIN)
+  createdAt   DateTime  @default(now())
+}
+
+model Destination {
+  id            Int          @id @default(autoincrement())
+  name          String
+  slug          String        @unique
+  description   String
+  location      String
+  coordinate    String
+  images        Image[]
+  reviews       Review[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+
+model Image {
+  id              Int           @id @default(autoincrement())
+  url             String
+  imageId         String
+  caption         String?
+  destination     Destination?  @relation(fields: [destinationId], references: [id])
+  destinationId   Int?
+  createdAt       DateTime      @default(now())
+}
+
+model Review {
+  id             Int           @id @default(autoincrement())
+  rating         Int           // 1–5
+  comment        String?
+  email          String
+  destination    Destination   @relation(fields: [destinationId], references: [id])
+  destinationId  Int
+  approve        Boolean @default(false)
+  createdAt      DateTime      @default(now())
+}
+
+
+
+enum Role {
+  ADMIN
+  USER
+}

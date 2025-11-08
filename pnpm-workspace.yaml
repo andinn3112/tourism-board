@@ -1,0 +1,5 @@
+onlyBuiltDependencies:
+  - '@prisma/client'
+  - bcrypt
+  - sharp
+  - unrs-resolver
