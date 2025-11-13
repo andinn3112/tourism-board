@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,52 +7,67 @@ datasource db {
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
-        
+
 model User {
-  id          Int       @id @default(autoincrement())
-  name        String
-  email       String    @unique
-  password    String
-  role        Role      @default(ADMIN)
-  createdAt   DateTime  @default(now())
+  id           String        @id @default(cuid())
+  name         String
+  email        String        @unique
+  password     String
+  authSessions AuthSession[]
+  role         Role          @default(ADMIN)
+  createdAt    DateTime      @default(now())
+}
+
+model AuthSession {
+  id         String    @id @default(cuid())
+  userId     String
+  token      String    @db.Text
+  expiresAt  DateTime
+  lastUsedAt DateTime? @default(now())
+  revoked    Boolean   @default(false)
+  revokedAt  DateTime?
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@map("auth_sessions")
 }
 
 model Destination {
-  id            Int          @id @default(autoincrement())
-  name          String
-  slug          String        @unique
-  description   String
-  location      String
-  coordinate    String
-  images        Image[]
-  reviews       Review[]
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String
+  location    String
+  coordinate  String
+  images      Image[]
+  reviews     Review[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
-
 model Image {
-  id              Int           @id @default(autoincrement())
-  url             String
-  imageId         String
-  caption         String?
-  destination     Destination?  @relation(fields: [destinationId], references: [id])
-  destinationId   Int?
-  createdAt       DateTime      @default(now())
+  id            String       @id @default(cuid())
+  url           String
+  imageId       String
+  caption       String?
+  destination   Destination? @relation(fields: [destinationId], references: [id])
+  destinationId String?
+  createdAt     DateTime     @default(now())
 }
 
 model Review {
-  id             Int           @id @default(autoincrement())
-  rating         Int           // 1–5
-  comment        String?
-  email          String
-  destination    Destination   @relation(fields: [destinationId], references: [id])
-  destinationId  Int
-  approve        Boolean @default(false)
-  createdAt      DateTime      @default(now())
+  id            String      @id @default(cuid())
+  rating        Int // 1–5
+  comment       String?
+  email         String
+  destination   Destination @relation(fields: [destinationId], references: [id])
+  destinationId String
+  approve       Boolean     @default(false)
+  createdAt     DateTime    @default(now())
 }
-
-
 
 enum Role {
   ADMIN

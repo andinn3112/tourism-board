@@ -1,9 +1,9 @@
 "use server";
 import bcrypt from "bcrypt";
 import { createSession, deleteSession } from "@/lib/session";
-import prisma from "../prisma";
-import { errorResponse, successResponse } from "../response";
-import { LoginSchema } from "../schema/auth";
+import prisma from "@/lib/prisma";
+import { LoginSchema } from "./schema";
+import { errorResponse, successResponse } from "@/lib/response";
 
 export async function action(formData) {
   const rawData = Object.fromEntries(formData.entries());
