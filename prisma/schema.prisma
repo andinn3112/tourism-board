@@ -39,9 +39,9 @@ model Destination {
   id          String   @id @default(cuid())
   name        String
   slug        String   @unique
-  description String
-  location    String
-  coordinate  String
+  description String?
+  address     String?
+  coordinate  String?
   images      Image[]
   reviews     Review[]
   createdAt   DateTime @default(now())
