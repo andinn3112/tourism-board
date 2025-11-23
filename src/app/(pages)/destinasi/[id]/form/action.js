@@ -16,8 +16,8 @@ export async function action(formData) {
 
   const data = await prisma.destination.upsert({
     where: { id },
-    create: { ...input, slug: slugify(input.name) },
-    update: { ...input, slug: slugify(input.name) },
+    create: { ...input, slug: slugify(input?.name) },
+    update: { ...input, slug: slugify(input?.name) },
   });
 
   return successResponse({ data });

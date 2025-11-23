@@ -6,6 +6,8 @@ export function cn(...inputs) {
 }
 
 export function slugify(text) {
+  console.log({ text });
+
   return text
     .toString()
     .toLowerCase()
