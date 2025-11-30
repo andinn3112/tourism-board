@@ -10,3 +10,12 @@ export const requiredField = (field, min = 1) => {
       })
    );
 };
+
+export const requiredEmail = (field) =>
+   z.preprocess(
+      (v) => (v === undefined || v === null ? "" : v),
+      z
+         .string()
+         .min(1, { message: `${field} wajib diisi` })
+         .email("Email tidak valid")
+   );
