@@ -1,1 +1,9 @@
+export const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME;
+export const SITE_DESCRIPTION = process.env.NEXT_PUBLIC_SITE_DESCRIPTION;
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+export const DATABASE_URL = process.env.DATABASE_URL;
+export const DIRECT_URL = process.env.DIRECT_URL;
 export const JWT_SECRET = process.env.JWT_SECRET;
+export const IMAGEKIT_PUBLIC_KEY = process.env.IMAGEKIT_PUBLIC_KEY;
+export const IMAGEKIT_PRIVATE_KEY = process.env.IMAGEKIT_PRIVATE_KEY;
+export const IMAGEKIT_URL_ENDPOINT = process.env.IMAGEKIT_URL_ENDPOINT;

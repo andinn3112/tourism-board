@@ -14,7 +14,7 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
-CREATE TABLE "auth_sessions" (
+CREATE TABLE "AuthSession" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "token" TEXT NOT NULL,
@@ -25,21 +25,34 @@ CREATE TABLE "auth_sessions" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "auth_sessions_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "AuthSession_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Destination" (
+CREATE TABLE "Kategori" (
     "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
+    "nama" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
-    "description" TEXT NOT NULL,
-    "location" TEXT NOT NULL,
-    "coordinate" TEXT NOT NULL,
+    "deskripsi" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "Destination_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Kategori_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Destinasi" (
+    "id" TEXT NOT NULL,
+    "nama" TEXT NOT NULL,
+    "slug" TEXT NOT NULL,
+    "deskripsi" TEXT,
+    "alamat" TEXT,
+    "koordinat" TEXT,
+    "kategoriId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Destinasi_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -47,8 +60,7 @@ CREATE TABLE "Image" (
     "id" TEXT NOT NULL,
     "url" TEXT NOT NULL,
     "imageId" TEXT NOT NULL,
-    "caption" TEXT,
-    "destinationId" TEXT,
+    "destinasiId" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Image_pkey" PRIMARY KEY ("id")
@@ -58,9 +70,9 @@ CREATE TABLE "Image" (
 CREATE TABLE "Review" (
     "id" TEXT NOT NULL,
     "rating" INTEGER NOT NULL,
-    "comment" TEXT,
+    "komentar" TEXT,
     "email" TEXT NOT NULL,
-    "destinationId" TEXT NOT NULL,
+    "destinasiId" TEXT NOT NULL,
     "approve" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -71,16 +83,22 @@ CREATE TABLE "Review" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
-CREATE INDEX "auth_sessions_userId_idx" ON "auth_sessions"("userId");
+CREATE INDEX "AuthSession_userId_idx" ON "AuthSession"("userId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Destination_slug_key" ON "Destination"("slug");
+CREATE UNIQUE INDEX "Kategori_slug_key" ON "Kategori"("slug");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Destinasi_slug_key" ON "Destinasi"("slug");
 
 -- AddForeignKey
-ALTER TABLE "auth_sessions" ADD CONSTRAINT "auth_sessions_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "AuthSession" ADD CONSTRAINT "AuthSession_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Image" ADD CONSTRAINT "Image_destinationId_fkey" FOREIGN KEY ("destinationId") REFERENCES "Destination"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Destinasi" ADD CONSTRAINT "Destinasi_kategoriId_fkey" FOREIGN KEY ("kategoriId") REFERENCES "Kategori"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Review" ADD CONSTRAINT "Review_destinationId_fkey" FOREIGN KEY ("destinationId") REFERENCES "Destination"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Image" ADD CONSTRAINT "Image_destinasiId_fkey" FOREIGN KEY ("destinasiId") REFERENCES "Destinasi"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Review" ADD CONSTRAINT "Review_destinasiId_fkey" FOREIGN KEY ("destinasiId") REFERENCES "Destinasi"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

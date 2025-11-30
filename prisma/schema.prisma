@@ -1,75 +1,86 @@
 generator client {
-  provider = "prisma-client-js"
+   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+   provider  = "postgresql"
+   url       = env("DATABASE_URL")
+   directUrl = env("DIRECT_URL")
 }
 
 model User {
-  id           String        @id @default(cuid())
-  name         String
-  email        String        @unique
-  password     String
-  authSessions AuthSession[]
-  role         Role          @default(ADMIN)
-  createdAt    DateTime      @default(now())
+   id           String        @id @default(cuid())
+   name         String
+   email        String        @unique
+   password     String
+   authSessions AuthSession[]
+   role         Role          @default(ADMIN)
+   createdAt    DateTime      @default(now())
 }
 
 model AuthSession {
-  id         String    @id @default(cuid())
-  userId     String
-  token      String    @db.Text
-  expiresAt  DateTime
-  lastUsedAt DateTime? @default(now())
-  revoked    Boolean   @default(false)
-  revokedAt  DateTime?
+   id         String    @id @default(cuid())
+   userId     String
+   token      String    @db.Text
+   expiresAt  DateTime
+   lastUsedAt DateTime? @default(now())
+   revoked    Boolean   @default(false)
+   revokedAt  DateTime?
 
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
 
-  @@index([userId])
-  @@map("auth_sessions")
+   @@index([userId])
 }
 
-model Destination {
-  id          String   @id @default(cuid())
-  name        String
-  slug        String   @unique
-  description String?
-  address     String?
-  coordinate  String?
-  images      Image[]
-  reviews     Review[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model Kategori {
+   id        String   @id @default(cuid())
+   nama      String
+   slug      String   @unique
+   deskripsi String?
+   createdAt DateTime @default(now())
+   updatedAt DateTime @updatedAt
+
+   destinasi Destinasi[]
+}
+
+model Destinasi {
+   id           String   @id @default(cuid())
+   nama         String
+   slug         String   @unique
+   deskripsi    String?
+   alamat       String?
+   koordinat    String?
+   images       Image[]
+   reviews      Review[]
+   kategori     Kategori @relation(fields: [kategoriSlug], references: [slug])
+   kategoriSlug String
+   createdAt    DateTime @default(now())
+   updatedAt    DateTime @updatedAt
 }
 
 model Image {
-  id            String       @id @default(cuid())
-  url           String
-  imageId       String
-  caption       String?
-  destination   Destination? @relation(fields: [destinationId], references: [id])
-  destinationId String?
-  createdAt     DateTime     @default(now())
+   id          String     @id @default(cuid())
+   url         String
+   imageId     String
+   destinasi   Destinasi? @relation(fields: [destinasiId], references: [id])
+   destinasiId String?
+   createdAt   DateTime   @default(now())
 }
 
 model Review {
-  id            String      @id @default(cuid())
-  rating        Int // 1–5
-  comment       String?
-  email         String
-  destination   Destination @relation(fields: [destinationId], references: [id])
-  destinationId String
-  approve       Boolean     @default(false)
-  createdAt     DateTime    @default(now())
+   id          String    @id @default(cuid())
+   rating      Int // 1–5
+   komentar    String?
+   email       String
+   destinasi   Destinasi @relation(fields: [destinasiId], references: [id])
+   destinasiId String
+   approve     Boolean   @default(false)
+   createdAt   DateTime  @default(now())
 }
 
 enum Role {
-  ADMIN
-  USER
+   ADMIN
+   USER
 }

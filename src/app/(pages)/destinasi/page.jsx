@@ -1,17 +1,21 @@
-import { buttonVariants } from "@/components/ui/button";
 import { getDestination } from "@/lib/query";
-import Link from "next/link";
 import Data from "./data";
+import { withMetadata } from "@/lib/metadata";
+import { TambahDestinasi } from "@/components/button/form-destinasi";
+
+export const generateMetadata = withMetadata("Destinasi");
 
 export default async function Page() {
-  const data = await getDestination();
-  return (
-    <div className="container mx-auto space-y-6">
-      <h1 className="text-xl">Destinasi</h1>
-      <Link href="/destinasi/new/form" className={buttonVariants()}>
-        Tambah Destinasi
-      </Link>
-      <Data data={data} />
-    </div>
-  );
+   const data = await getDestination();
+
+   return (
+      <div className="max-w-7xl mx-auto w-full space-y-6 p-4">
+         <div className="flex justify-between gap-4">
+            <h1 className="text-xl">Destinasi</h1>
+            <TambahDestinasi />
+         </div>
+
+         <Data data={data} />
+      </div>
+   );
 }
