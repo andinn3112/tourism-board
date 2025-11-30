@@ -48,7 +48,7 @@ CREATE TABLE "Destinasi" (
     "deskripsi" TEXT,
     "alamat" TEXT,
     "koordinat" TEXT,
-    "kategoriId" TEXT NOT NULL,
+    "kategoriSlug" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -95,7 +95,7 @@ CREATE UNIQUE INDEX "Destinasi_slug_key" ON "Destinasi"("slug");
 ALTER TABLE "AuthSession" ADD CONSTRAINT "AuthSession_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Destinasi" ADD CONSTRAINT "Destinasi_kategoriId_fkey" FOREIGN KEY ("kategoriId") REFERENCES "Kategori"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Destinasi" ADD CONSTRAINT "Destinasi_kategoriSlug_fkey" FOREIGN KEY ("kategoriSlug") REFERENCES "Kategori"("slug") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Image" ADD CONSTRAINT "Image_destinasiId_fkey" FOREIGN KEY ("destinasiId") REFERENCES "Destinasi"("id") ON DELETE SET NULL ON UPDATE CASCADE;
