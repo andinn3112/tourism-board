@@ -36,7 +36,7 @@ export async function decrypt(sessionToken) {
 
       return payload;
    } catch (error) {
-      console.error("JWT verification failed", error);
+      console.log("JWT verification failed", error);
       return null;
    }
 }
