@@ -92,6 +92,9 @@ CREATE UNIQUE INDEX "Kategori_slug_key" ON "Kategori"("slug");
 -- CreateIndex
 CREATE UNIQUE INDEX "Destinasi_slug_key" ON "Destinasi"("slug");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "Image_fileId_key" ON "Image"("fileId");
+
 -- AddForeignKey
 ALTER TABLE "AuthSession" ADD CONSTRAINT "AuthSession_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
