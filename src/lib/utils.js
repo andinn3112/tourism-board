@@ -12,8 +12,6 @@ export function toastAlert(status = "success", message) {
 }
 
 export function slugify(text) {
-   console.log({ text });
-
    return text
       .toString()
       .toLowerCase()

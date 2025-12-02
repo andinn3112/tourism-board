@@ -52,6 +52,7 @@ model Destinasi {
    deskripsi    String?
    alamat       String?
    koordinat    String?
+   view         Int      @default(0)
    images       Image[]
    reviews      Review[]
    kategori     Kategori @relation(fields: [kategoriSlug], references: [slug])
@@ -62,8 +63,8 @@ model Destinasi {
 
 model Image {
    id          String     @id @default(cuid())
-   url         String
-   imageId     String
+   imageUrl    String
+   fileId      String     @unique
    destinasi   Destinasi? @relation(fields: [destinasiId], references: [id])
    destinasiId String?
    createdAt   DateTime   @default(now())
@@ -71,7 +72,7 @@ model Image {
 
 model Review {
    id          String    @id @default(cuid())
-   rating      Int // 1–5
+   nama        String?
    komentar    String?
    email       String
    destinasi   Destinasi @relation(fields: [destinasiId], references: [id])

@@ -1,5 +1,6 @@
 import { BASE_URL, SITE_DESCRIPTION, SITE_NAME } from "./env";
 import prisma from "./prisma";
+import { getDestinationById } from "./query";
 
 export function withMetadata(pageTitle) {
    return async function generateMetadata({ params }, parent) {
@@ -58,10 +59,8 @@ export async function getSiteMetadata() {
    };
 }
 
-export async function getDestinationMetadata(slug) {
-   const data = await prisma.destinasi.findUnique({
-      where: { slug },
-   });
+export async function getDestinationMetadata(id) {
+   const data = await getDestinationById(id);
 
    if (!data) {
       return {
@@ -72,9 +71,9 @@ export async function getDestinationMetadata(slug) {
 
    const siteUrl = BASE_URL;
    const siteName = SITE_NAME;
-   const title = data.name;
-   const description = data.description.slice(0, 150);
-   const imageUrl = data.images[0]?.url || `${siteUrl}/images/logo.png`;
+   const title = data.nama;
+   const description = data.deskripsi.slice(0, 150);
+   const imageUrl = data.images[0]?.imageUrl || `${siteUrl}/images/logo.png`;
 
    return {
       title,
@@ -84,7 +83,7 @@ export async function getDestinationMetadata(slug) {
          description,
          type: "website",
          siteName,
-         url: `${siteUrl}/destinasi/${data.slug}`,
+         url: `${siteUrl}/destinasi/${data.id}`,
          images: [
             {
                url: imageUrl,
@@ -100,6 +99,6 @@ export async function getDestinationMetadata(slug) {
          description,
          images: [imageUrl],
       },
-      canonical: `${siteUrl}/destinasi/${data.slug}`,
+      canonical: `${siteUrl}/destinasi/${data.id}`,
    };
 }

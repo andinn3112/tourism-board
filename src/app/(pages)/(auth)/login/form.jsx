@@ -21,46 +21,50 @@ export default function Form() {
    const navigate = useNavigate();
 
    return (
-      <div className="max-w-md w-full mx-auto bg-card border border-card shadow-lg rounded-lg relative py-8">
-         <LoaderSpinner show={loading} />
-         <div className="p-8 space-y-6">
-            <div className="flex flex-col justify-center items-center gap-2">
-               <Logo />
-               <div className="text-2xl font-semibold text-center text-primary">
-                  {SITE_NAME}
+      <div className="flex h-screen w-screen flex-col justify-center items-center">
+         <div className="max-w-sm w-full mx-auto bg-card border border-card shadow-lg rounded-lg relative py-5">
+            <LoaderSpinner show={loading} />
+            <div className="p-8 space-y-6">
+               <div className="flex flex-col justify-center items-center gap-2">
+                  <Link href="/">
+                     <Logo />
+                  </Link>
+                  <div className="text-2xl font-semibold text-center text-primary">
+                     {SITE_NAME}
+                  </div>
+                  <div className="text-muted-foreground text-center">
+                     Silahkan masukkan kredensial anda
+                  </div>
                </div>
-               <div className="text-muted-foreground text-center">
-                  Silahkan masukkan kredensial anda
-               </div>
+
+               <form
+                  onSubmit={handleSubmit}
+                  className="flex flex-col gap-6 relative"
+               >
+                  <div className="flex flex-col gap-4">
+                     <InputText
+                        label="Email"
+                        placeholder="email@web.com"
+                        name="email"
+                        value={form?.email}
+                        setValue={setForm}
+                        errors={errors}
+                     />
+                     <InputText
+                        label="Password"
+                        type="password"
+                        name="password"
+                        value={form?.password}
+                        setValue={setForm}
+                        errors={errors}
+                     />
+                  </div>
+
+                  <Button>
+                     Login <LogInIcon className="size-4" />
+                  </Button>
+               </form>
             </div>
-
-            <form
-               onSubmit={handleSubmit}
-               className="flex flex-col gap-6 relative"
-            >
-               <div className="flex flex-col gap-4">
-                  <InputText
-                     label="Email"
-                     placeholder="email@web.com"
-                     name="email"
-                     value={form?.email}
-                     setValue={setForm}
-                     errors={errors}
-                  />
-                  <InputText
-                     label="Password"
-                     type="password"
-                     name="password"
-                     value={form?.password}
-                     setValue={setForm}
-                     errors={errors}
-                  />
-               </div>
-
-               <Button>
-                  Login <LogInIcon className="size-4" />
-               </Button>
-            </form>
          </div>
       </div>
    );
@@ -74,7 +78,7 @@ export default function Form() {
          const result = await action(formData);
 
          if (result.success) {
-            navigate("/dashboard");
+            navigate("/");
          } else {
             setErrors(result.errors || {});
          }

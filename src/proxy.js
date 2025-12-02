@@ -4,12 +4,12 @@ import { verifySession } from "./lib/session";
 
 export default async function proxy(req) {
    const path = normalizePath(req.nextUrl.pathname);
-   const protectedRoutes = ["/dashboard"];
+   const protectedRoutes = ["/dashboard", "/profile"];
    const isProtected = matchRoute(path, protectedRoutes);
 
    const session = await verifySession();
 
-   console.log({ path, isProtected, session });
+   console.log({ path });
 
    if (isProtected && !session.isLoggedIn) {
       return NextResponse.redirect(new URL("/login", req.nextUrl));

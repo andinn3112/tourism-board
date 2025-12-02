@@ -22,6 +22,7 @@ export function InputText({
       <div className={cn("space-y-1", className)}>
          <Label htmlFor={name}>{label}</Label>
          <Input
+            id={name}
             name={name}
             type={type}
             placeholder={placeholder}

@@ -25,7 +25,7 @@ export function EditDestinasi({ id }) {
    return (
       <Link
          href={`/destinasi/${id}/form`}
-         className={buttonVariants({ variant: "ouline", size: "icon" })}
+         className={buttonVariants({ variant: "outline", size: "icon" })}
       >
          <PencilIcon className="size-4" />
       </Link>

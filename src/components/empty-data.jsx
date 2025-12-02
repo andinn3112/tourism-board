@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { SearchX } from "lucide-react";
 
 export default function EmptyData({
    title = "Data tidak ditemukan",
@@ -14,9 +13,6 @@ export default function EmptyData({
       <div className="w-full flex justify-center py-20">
          <Card className="border-none shadow-none bg-transparent text-center">
             <CardContent className="flex flex-col items-center gap-4">
-               {/* Icon */}
-               <SearchX className="text-destructive size-20" />
-
                {/* Judul */}
                <h2 className="text-2xl font-semibold text-foreground/80">
                   {title}

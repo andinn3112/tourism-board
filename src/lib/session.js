@@ -41,7 +41,7 @@ export async function decrypt(sessionToken) {
    }
 }
 
-//  Create session
+//  Create session user
 export async function createSession(user) {
    const sessionId = uuidv4();
    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 hari

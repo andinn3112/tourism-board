@@ -113,7 +113,7 @@ export default function OptionsSelect({
             <input type="hidden" name={name} value={value} />
             <div
                className={cn(
-                  "flex items-center justify-between w-full px-3 py-2 text-sm border rounded-md bg-transparent dark:bg-input/30 border-input",
+                  "flex items-center justify-between w-full px-3 py-2 text-sm border rounded-md bg-input/30 border-input",
                   "ring-offset-background placeholder:text-muted-foreground",
                   "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
                   hasErrors && "border-destructive focus:ring-destructive",

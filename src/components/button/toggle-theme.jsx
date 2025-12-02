@@ -29,7 +29,11 @@ export function ToggleTheme() {
 
    return (
       <Button variant="ghost" size="icon" onClick={toggleSwitch}>
-         {theme == "light" ? <SunIcon /> : <MoonIcon />}
+         {theme == "light" ? (
+            <SunIcon className="text-primary" />
+         ) : (
+            <MoonIcon />
+         )}
          <span className="sr-only">Toggle theme</span>
       </Button>
    );

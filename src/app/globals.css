@@ -118,4 +118,22 @@
    body {
       @apply bg-background text-foreground antialiased scroll-smooth text-base;
    }
+   button {
+      @apply cursor-pointer;
+   }
+}
+
+@keyframes slideIn {
+   from {
+      opacity: 0;
+      transform: translateX(20px);
+   }
+   to {
+      opacity: 1;
+      transform: translateX(0);
+   }
+}
+
+.slide-animate {
+   animation: slideIn 0.3s ease-out;
 }
