@@ -1,6 +1,6 @@
 import { EditDestinasi } from "@/components/button/form-destinasi";
 import MapEmbed from "@/components/map";
-import { getDestinationById } from "@/lib/query";
+import { getDestination, getDestinationById } from "@/lib/query";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,6 +11,14 @@ import { format } from "date-fns";
 export async function generateMetadata({ params }) {
    const { id } = await params;
    return await getDestinationMetadata(id);
+}
+
+export async function generateStaticParams() {
+   const res = await getDestination({ limit: 10 });
+   const { data = [] } = res;
+   return data.map((dt) => ({
+      id: dt.id.toString(),
+   }));
 }
 
 export default async function Page({ params }) {

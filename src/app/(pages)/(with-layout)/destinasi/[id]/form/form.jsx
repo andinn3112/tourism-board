@@ -12,8 +12,6 @@ import { Loader2 } from "lucide-react";
 import { LoaderSpinner } from "@/components/loader";
 
 export default function Form({ data, categories = [] }) {
-   console.log({ data });
-
    // Format images dengan { imageUrl, fileId }
    const [form, setForm] = useState({
       ...data,
@@ -24,8 +22,6 @@ export default function Form({ data, categories = [] }) {
             fileId: img.fileId,
          })) || [],
    });
-
-   console.log({ form });
 
    const [errors, setErrors] = useState({});
    const [loading, setLoading] = useState(false);
@@ -57,8 +53,6 @@ export default function Form({ data, categories = [] }) {
             })) || [],
       });
    }, [data]);
-
-   console.log({ data });
 
    // Handler khusus untuk ImageUpload yang sudah mengembalikan format { imageUrl, fileId }[]
    const handleSetImages = (updater) => {

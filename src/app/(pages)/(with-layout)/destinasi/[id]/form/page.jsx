@@ -6,6 +6,9 @@ import Form from "./form";
 import { getUser } from "@/lib/session";
 import { withMetadata } from "@/lib/metadata";
 
+// export const dynamic = "force-dynamic";
+// export const revalidate = 0;
+
 export const generateMetadata = withMetadata("Form Destinasi");
 
 export default async function Page({ params }) {
@@ -25,7 +28,6 @@ export default async function Page({ params }) {
 
    const data = await getDestinationById(id);
    const queryCategory = await getCategories({ limit: 100 });
-   console.log({ data });
 
    // kalau edit dan tidak ada data...
    if (id != "new" && !data) {
