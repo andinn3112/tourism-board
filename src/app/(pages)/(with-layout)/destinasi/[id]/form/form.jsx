@@ -36,6 +36,7 @@ export default function Form({ data, categories = [] }) {
          kategori: category?.slug,
       }));
    };
+   console.log({ categories });
 
    const categoryOptions = categories.map((cat) => ({
       value: cat.slug,

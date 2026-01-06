@@ -4,7 +4,7 @@ import Header from "./header";
 import { useAuthStore } from "@/store/auth";
 import Footer from "./footer";
 
-export default function WebLayout({ user, children }) {
+export default function WebLayout({ user, categories = [], children }) {
    const { setUser } = useAuthStore();
 
    useEffect(() => {
@@ -15,7 +15,7 @@ export default function WebLayout({ user, children }) {
       <div className="flex flex-col h-full flex-1 min-h-screen">
          <Header user={user} />
          <main className="pt-6 flex-1 pb-10">{children}</main>
-         <Footer />
+         <Footer categories={categories} />
       </div>
    );
 }
