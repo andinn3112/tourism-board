@@ -5,9 +5,9 @@ const prisma = new PrismaClient();
 async function main() {
    const users = [
       {
-         name: "admin",
-         email: "admin@admin.com",
-         password: bcrypt.hashSync("12345678", 10),
+         name: "dev",
+         email: "dev@dev.com",
+         password: bcrypt.hashSync("112", 10),
          role: "ADMIN",
       },
    ];

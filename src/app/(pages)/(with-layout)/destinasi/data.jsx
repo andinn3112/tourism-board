@@ -3,7 +3,10 @@ import EmptyData from "@/components/empty-data";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
-import { EditDestinasi } from "@/components/button/form-destinasi";
+import {
+   EditDestinasi,
+   HapusDestinasi,
+} from "@/components/button/form-destinasi";
 
 export default function Data({ query }) {
    const { data, meta } = query;
@@ -103,7 +106,10 @@ function DestinationList({ data }) {
             {/* Edit Button */}
             <div className="flex justify-between items-center pt-3 border-t border-gray-100">
                <span className="text-xs text-gray-500">Klik untuk preview</span>
-               <EditDestinasi id={data.id} />
+               <div className="flex gap-2">
+                  <EditDestinasi id={data.id} />
+                  <HapusDestinasi id={data.id} />
+               </div>
             </div>
          </div>
       </div>

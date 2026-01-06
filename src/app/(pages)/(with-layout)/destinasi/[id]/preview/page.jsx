@@ -1,4 +1,7 @@
-import { EditDestinasi } from "@/components/button/form-destinasi";
+import {
+   EditDestinasi,
+   HapusDestinasi,
+} from "@/components/button/form-destinasi";
 import MapEmbed from "@/components/map";
 import { getDestination, getDestinationById } from "@/lib/query";
 import { notFound } from "next/navigation";
@@ -72,7 +75,10 @@ export default async function Page({ params }) {
                   </div>
                )}
             </div>
-            <EditDestinasi id={data.id} />
+            <div className="flex gap-2">
+               <EditDestinasi id={data.id} />
+               <HapusDestinasi id={data.id} />
+            </div>
          </div>
 
          {/* Gallery Section */}
