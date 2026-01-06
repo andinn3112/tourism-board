@@ -4,9 +4,7 @@ import { withMetadata } from "@/lib/metadata";
 
 export const generateMetadata = withMetadata("Kategori");
 
-export default async function Page({ searchParams }) {
-   const { search, page, limit } = await searchParams;
-
+export default async function Page() {
    const query = await getCategories();
 
    return (
