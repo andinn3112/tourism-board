@@ -9,8 +9,6 @@ export default async function proxy(req) {
 
    const session = await verifySession();
 
-   console.log({ path });
-
    if (isProtected && !session.isLoggedIn) {
       return NextResponse.redirect(new URL("/login", req.nextUrl));
    }

@@ -1,5 +1,5 @@
 import { getDestination } from "@/lib/query";
-import { MapPin, Star } from "lucide-react";
+import { MapPin } from "lucide-react";
 import Link from "next/link";
 
 export async function Destination({ kategoriSlug }) {

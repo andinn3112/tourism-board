@@ -27,7 +27,7 @@ export default async function Page({ params }) {
    }
 
    const data = await getDestinationById(id);
-   const queryCategory = await getCategories({ limit: 100 });
+   const queryCategory = await getCategories();
 
    // kalau edit dan tidak ada data...
    if (id != "new" && !data) {
@@ -41,7 +41,7 @@ export default async function Page({ params }) {
          </h1>
 
          <div className="space-y-2">
-            <Form data={data} categories={queryCategory?.data} />
+            <Form data={data} categories={queryCategory} />
          </div>
       </div>
    );

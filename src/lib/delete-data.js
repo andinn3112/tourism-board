@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import prisma from "./prisma";
 
-export async function deleteData(id) {
+export async function deleteDestinasi(id) {
    const images = await prisma.image.findMany({
       where: {
          destinasiId: id,
@@ -24,7 +24,7 @@ export async function deleteData(id) {
          }),
       });
    } catch (error) {
-      console.log("error delete", error);
+      console.warn("error delete", error);
    }
 
    await prisma.destinasi.delete({
@@ -32,4 +32,12 @@ export async function deleteData(id) {
    });
 
    revalidatePath("/destinasi");
+}
+
+export async function deleteKategori(id) {
+   await prisma.kategori.delete({
+      where: { id },
+   });
+
+   revalidatePath("/kategori");
 }

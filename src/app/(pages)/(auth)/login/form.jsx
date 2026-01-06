@@ -83,7 +83,7 @@ export default function Form() {
             setErrors(result.errors || {});
          }
       } catch (error) {
-         console.log("Gagal:", error);
+         console.warn("Gagal:", error);
          setErrors({ general: "Terjadi kesalahan. Silakan coba lagi." });
       } finally {
          setLoading(false);

@@ -2,7 +2,7 @@ import { getCategories } from "@/lib/query";
 import Data from "./data";
 
 export async function DestinationByCategory() {
-   const query = await getCategories({});
+   const query = await getCategories();
 
-   return <Data query={query} />;
+   return <Data data={query} />;
 }

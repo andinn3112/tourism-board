@@ -1,9 +1,7 @@
 import Link from "next/link";
 import { Destination } from "./destination";
 
-export default function Data({ query }) {
-   const { data = [] } = query;
-
+export default function Data({ data = [] }) {
    return (
       <div className="max-w-6xl w-full mx-auto space-y-8 my-8 p-4">
          {data.map((dt, i) => (
