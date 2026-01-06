@@ -1,7 +1,6 @@
 import { getCategories } from "@/lib/query";
 import Data from "./data";
 import { withMetadata } from "@/lib/metadata";
-import SearchBar from "@/components/search-bar";
 
 export const generateMetadata = withMetadata("Kategori");
 
